@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '965975648063',
     projectId: 'dailyexpendituretracker',
     storageBucket: 'dailyexpendituretracker.appspot.com',
-    iosClientId: '965975648063-83vjd0qn1jcc6a89a589uj1euvvto7li.apps.googleusercontent.com',
+    iosClientId:
+        '965975648063-83vjd0qn1jcc6a89a589uj1euvvto7li.apps.googleusercontent.com',
     iosBundleId: 'com.example.dailyExpenditureTracker',
   );
 }
