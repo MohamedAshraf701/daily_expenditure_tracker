@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "965975648063",
+    "project_id": "dailyexpendituretracker",
+    "storage_bucket": "dailyexpendituretracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965975648063:android:d9217f60cbbe4fbc09158a",
+        "android_client_info": {
+          "package_name": "com.example.daily_expenditure_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965975648063-63m3vi8a7eh5f3n1rl3bnrdosr5mfk11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJX2Orxl_wKT0MlXfZ_P7lCh5UQQHbSGM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965975648063-63m3vi8a7eh5f3n1rl3bnrdosr5mfk11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
