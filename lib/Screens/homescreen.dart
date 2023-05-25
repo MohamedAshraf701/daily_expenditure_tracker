@@ -49,20 +49,20 @@ class _MyScreenState extends State<MyScreen> {
                 fontSize: 16.0,
               ),
             ),
-            DropdownButton<String>(
-              value: selectedType,
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedType = newValue!;
-                });
-              },
-              items: types.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
+            // DropdownButton<String>(
+            //   value: selectedType,
+            //   onChanged: (String? newValue) {
+            //     setState(() {
+            //       selectedType = newValue!;
+            //     });
+            //   },
+            //   items: types.map<DropdownMenuItem<String>>((String value) {
+            //     return DropdownMenuItem<String>(
+            //       value: value,
+            //       child: Text(value),
+            //     );
+            //   }).toList(),
+            // ),
             SizedBox(height: 16.0),
             Row(
               children: [
