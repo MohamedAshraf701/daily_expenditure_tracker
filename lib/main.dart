@@ -1,4 +1,7 @@
+import 'package:daily_expenditure_tracker/Controllers/AuthController.dart';
+import 'package:daily_expenditure_tracker/Controllers/HomeScreencontroller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'Screens/homescreen.dart';
 
@@ -7,12 +10,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -26,6 +29,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      initialBinding: BindingsBuilder(() {
+        Get.put(AuthController());
+        Get.put(homeScreenController());
+      }),
       home: MyScreen(),
     );
   }

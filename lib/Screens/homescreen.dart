@@ -1,3 +1,4 @@
+import 'package:daily_expenditure_tracker/Controllers/HomeScreencontroller.dart';
 import 'package:daily_expenditure_tracker/Utils/Constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,7 @@ class _MyScreenState extends State<MyScreen> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
+      init: Get.find<homeScreenController>(),
       builder: (controller) {
         return SafeArea(
           child: Scaffold(
