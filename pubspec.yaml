@@ -28,7 +28,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  firebase_core: 
+  firebase_core:
+  dynamic_size: ^0.1.5
   get: ^4.6.5
   flutter:
     sdk: flutter
