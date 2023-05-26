@@ -4,6 +4,7 @@ import 'package:daily_expenditure_tracker/Controllers/HomeScreencontroller.dart'
 import 'package:daily_expenditure_tracker/Screens/LoginSCreen.dart';
 import 'package:daily_expenditure_tracker/Screens/Navigationbar.dart';
 import 'package:daily_expenditure_tracker/Utils/Constant.dart';
+import 'package:daily_expenditure_tracker/models/Textcontrolerrmodel.dart';
 import 'package:daily_expenditure_tracker/models/userModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,8 +36,12 @@ class _splashScreenState extends State<splashScreen> {
           print("::::::::::${user.username}");
           print("::::::::::${user.password}");
           Get.find<homeScreenController>().checkBoxList.add(user);
+          Get.find<homeScreenController>().update();
+
           TextEditingController cont = TextEditingController();
-          Get.find<homeScreenController>().nameController.add(cont);
+          Get.find<homeScreenController>()
+              .nameController
+              .add(txtController(controller: cont, id: user.id!));
           Get.find<homeScreenController>().update();
 
           Get.off(navigationScrenn());

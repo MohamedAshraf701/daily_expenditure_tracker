@@ -19,11 +19,13 @@ final box = GetStorage();
 
 Widget appTextField(
     {required TextEditingController textEditingController,
-    required String labelText}) {
+    required String labelText,
+    Function(String)? onchange}) {
   return TextField(
     style: TextStyle(color: Colors.white),
     controller: textEditingController,
     keyboardType: TextInputType.number,
+    onChanged: onchange,
     decoration: InputDecoration(
       labelText: labelText,
       //hintText: labelText,

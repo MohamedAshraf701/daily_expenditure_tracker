@@ -3,6 +3,7 @@
 import 'package:daily_expenditure_tracker/Controllers/AuthController.dart';
 import 'package:daily_expenditure_tracker/Controllers/HomeScreencontroller.dart';
 import 'package:daily_expenditure_tracker/Utils/Constant.dart';
+import 'package:daily_expenditure_tracker/models/Textcontrolerrmodel.dart';
 import 'package:daily_expenditure_tracker/models/types.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +11,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class addExpense extends GetView<homeScreenController> {
-  final List<String> Items = [
-    'Ashraf',
-    'Irshad',
-    'Akshay',
-  ];
   @override
   Widget build(BuildContext context) {
     AuthController auth = Get.find<AuthController>();
@@ -60,6 +56,15 @@ class addExpense extends GetView<homeScreenController> {
                     appTextField(
                       labelText: "Price",
                       textEditingController: controller.priceController,
+                      onchange: (value) {
+                        if (controller.checkBoxList.length > 0) {
+                          controller.val =
+                              int.parse(value) / controller.checkBoxList.length;
+                        } else {
+                          controller.val = int.parse(value).toDouble();
+                        }
+                        controller.update();
+                      },
                     ),
                     size.HeightSpace(20),
                     DropdownButtonFormField2(
@@ -156,25 +161,34 @@ class addExpense extends GetView<homeScreenController> {
                                       borderRadius: BorderRadius.circular(5)),
                                   side:
                                       BorderSide(color: Appcolors.buttonColor),
-                                  value: controller.checkBoxList
-                                      .contains(auth.users[i]),
+                                  value:
+                                      controller.checkcontains(auth.users[i]),
                                   onChanged: (bool? newValue) {
-                                    if (controller.checkBoxList
-                                        .contains(auth.users[i])) {
-                                      controller.checkBoxList
-                                          .remove(auth.users[i]);
-                                      controller.nameController.removeAt(i);
+                                    if (!newValue!) {
+                                      controller.checkBoxList.removeWhere(
+                                          (element) =>
+                                              element.id == auth.users[i].id);
+
+                                      controller.nameController.removeWhere(
+                                          (element) =>
+                                              element.id == auth.users[i].id);
+                                      controller.val = int.parse(
+                                              controller.priceController.text) /
+                                          controller.checkBoxList.length;
                                     } else {
                                       controller.checkBoxList
                                           .add(auth.users[i]);
                                       TextEditingController cont =
                                           TextEditingController();
-                                      if (i >
-                                          controller.nameController.length) {
-                                        controller.nameController.add(cont);
-                                      } else {
-                                        controller.nameController
-                                            .insert(i, cont);
+
+                                      controller.nameController.add(
+                                          txtController(
+                                              id: auth.users[i].id!,
+                                              controller: cont));
+                                      if (controller.checkBoxList.length > 0) {
+                                        controller.val = int.parse(controller
+                                                .priceController.text) /
+                                            controller.checkBoxList.length;
                                       }
                                     }
                                     controller.update();
@@ -197,6 +211,8 @@ class addExpense extends GetView<homeScreenController> {
                       shrinkWrap: true,
                       itemCount: controller.checkBoxList.length,
                       itemBuilder: (context, index) {
+                        controller.nameController[index].controller.text =
+                            controller.val.toString();
                         return Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -204,7 +220,7 @@ class addExpense extends GetView<homeScreenController> {
                               labelText:
                                   controller.checkBoxList[index].username ?? "",
                               textEditingController:
-                                  controller.nameController[index],
+                                  controller.nameController[index].controller,
                             ),
                             size.HeightSpace(20)
                           ],
