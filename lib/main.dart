@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         Get.put(homeScreenController());
         Get.put(NavigationController());
       }),
-      home: LoginScreen(),
+      home: splashScreen(),
     );
   }
 }

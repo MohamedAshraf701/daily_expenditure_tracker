@@ -15,10 +15,12 @@ class homeScreenController extends GetxController {
   List<userModel> checkBoxList = [];
   String selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
   addData() {
-    if (selectedValue == '') {
+    if (selectedValue == '' ||
+        priceController.text.isEmpty ||
+        checkBoxList.isEmpty) {
       Get.snackbar("", "",
           messageText: Text(
-            "Please Select Type",
+            "Please Fill Details",
             style: TextStyle(color: Colors.white),
           ),
           titleText:
