@@ -1,26 +1,45 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:daily_expenditure_tracker/Controllers/HomeScreencontroller.dart';
 import 'package:daily_expenditure_tracker/Utils/Constant.dart';
+import 'package:daily_expenditure_tracker/models/transactions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class homeScreen extends StatelessWidget {
   const homeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Appcolors.backgroundColor,
-      body: Container(
-          margin: EdgeInsets.all(15),
-          child: ListView.builder(
-            itemCount: 10,
-            shrinkWrap: true,
-            itemBuilder: (context, index) => Expantiontiles(),
-          )),
-    );
+    homeScreenController _controller = Get.find<homeScreenController>();
+    _controller.getlist();
+    return GetBuilder(
+        init: _controller,
+        builder: (controller) {
+          return Scaffold(
+            backgroundColor: Appcolors.backgroundColor,
+            body: Container(
+                margin: EdgeInsets.all(15),
+                child: controller.Loader
+                    ? Center(child: Lottie.asset('assets/loader.json'))
+                    : ListView.builder(
+                        itemCount: controller.transactionsList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) =>
+                            Expantiontiles(controller.transactionsList[index]),
+                      )),
+          );
+        });
   }
 
-  Expantiontiles() {
+  Expantiontiles(transactions data) {
+    List<String> keydata = [];
+    List<String> valuedata = [];
+    data.payments?.forEach((key, value) {
+      keydata.add(key);
+      valuedata.add(value);
+    });
     return Container(
       margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
@@ -36,28 +55,22 @@ class homeScreen extends StatelessWidget {
           iconColor: Appcolors.buttonColor,
           subtitle: Row(
             children: [
-              Text("Prise", style: TextStyle(color: Appcolors.buttonColor)),
+              Text("${data.type}",
+                  style: TextStyle(color: Appcolors.buttonColor)),
               size.WidthSpace(10),
-              Text("250", style: TextStyle(color: Appcolors.buttonColor)),
+              Text("${data.total}",
+                  style: TextStyle(color: Appcolors.buttonColor)),
             ],
           ),
-          title: Text("Expenditure", style: TextStyle(color: Colors.white)),
+          title: Text("${data.payer}", style: TextStyle(color: Colors.white)),
           children: [
-            ListTile(
-              trailing:
-                  Text("80", style: TextStyle(color: Appcolors.buttonColor)),
-              title: Text("Ashraf", style: TextStyle(color: Colors.white)),
-            ),
-            ListTile(
-              trailing:
-                  Text("60", style: TextStyle(color: Appcolors.buttonColor)),
-              title: Text("Akshay", style: TextStyle(color: Colors.white)),
-            ),
-            ListTile(
-              trailing:
-                  Text("70", style: TextStyle(color: Appcolors.buttonColor)),
-              title: Text("Irshad", style: TextStyle(color: Colors.white)),
-            )
+            for (int i = 0; i < keydata.length; i++)
+              ListTile(
+                trailing: Text("${valuedata[i]}",
+                    style: TextStyle(color: Appcolors.buttonColor)),
+                title: Text("${keydata[i]}",
+                    style: TextStyle(color: Colors.white)),
+              )
           ],
         ),
       ),

@@ -7,6 +7,8 @@ import '../Screens/homeScreen.dart';
 
 class NavigationController extends GetxController {
   int selectedIndex = 0;
+  bool Loader = false;
+
   List screens = [homeScreen(), addExpense(), Demo()];
   selctedIndexChange(int i) {
     selectedIndex = i;
