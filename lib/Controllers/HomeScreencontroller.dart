@@ -20,6 +20,9 @@ class homeScreenController extends GetxController {
   List<userModel> checkBoxList = [];
   List<transactions> transactionsList = [];
   DateTime selectedDate = DateTime.now();
+  int totalAMountofPayer = 0;
+  Map<String, dynamic> owenedMoney = {};
+  Map<String, dynamic> pendingMoney = {};
   bool checkcontains(userModel user) {
     for (int i = 0; i < checkBoxList.length; i++) {
       if (checkBoxList[i].username?.toLowerCase() ==
@@ -38,7 +41,6 @@ class homeScreenController extends GetxController {
         id: int.parse(box.read("id").toString() ?? ""));
 
     nameController.clear();
-    selectedValue = "";
     val = 0.0;
     checkBoxList.clear();
 
@@ -53,6 +55,10 @@ class homeScreenController extends GetxController {
   getlist() async {
     Loader = true;
     update();
+    userModel user = userModel(
+        username: box.read("username"),
+        password: box.read("password"),
+        id: int.parse(box.read("id").toString() ?? ""));
     QuerySnapshot snapshot = await firestore.collection("transactions").get();
     // Iterate over the QuerySnapshot object to access the data from the documents.
     for (DocumentSnapshot document in snapshot.docs) {
@@ -70,10 +76,72 @@ class homeScreenController extends GetxController {
         type: map['type'].toString(),
       );
       transactionsList.add(tr);
+
       print("data:::::::${map}");
     }
+    getOwedAmount(transactionsList, user);
+    // List<transactions> temp2 = transactionsList.where((element) {
+    //   for (int i = 0; i < element.participants.length; i++) {
+    //     if (element.participants[i].toString().toLowerCase() ==
+    //         user.username?.toLowerCase()) {
+    //       return true;
+    //     }
+    //   }
+    //   return false;
+    // }).toList();
+    getPendingamount(transactionsList, user);
     Loader = false;
     update();
+  }
+
+  getPendingamount(List<transactions> temp, userModel user) {
+    temp.forEach((element) {
+      element.participants.forEach((element1) {
+        if (element1.toString().toLowerCase() == user.username?.toLowerCase() &&
+            element.payer.toLowerCase() != user.username?.toLowerCase()) {
+          if (pendingMoney.containsKey(element.payer)) {
+            print("wwwwwwwww:::::::$element");
+            pendingMoney.update(element.payer, (value) {
+              print(value.toString());
+              double val = double.parse(value);
+              double secval =
+                  double.parse(element.payments[element1.toString()]);
+              print((val + secval).toString());
+
+              return (val + secval).toString();
+            });
+          } else {
+            pendingMoney.addAll(
+                {element.payer.toString(): element.payments[user.username]});
+          }
+        }
+      });
+    });
+  }
+
+  getOwedAmount(List<transactions> temp, userModel user) {
+    temp.forEach((element) {
+      totalAMountofPayer = totalAMountofPayer + int.parse(element.total ?? "0");
+      element.participants.forEach((element1) {
+        if (element1.toString().toLowerCase() != user.username?.toLowerCase() &&
+            element.payer.toLowerCase() == user.username?.toLowerCase()) {
+          if (owenedMoney.containsKey(element1.toString())) {
+            owenedMoney.update(element1, (value) {
+              print(value.toString());
+              double val = double.parse(value);
+              double secval =
+                  double.parse(element.payments[element1.toString()]);
+              print((val + secval).toString());
+
+              return (val + secval).toString();
+            });
+          } else {
+            owenedMoney.addAll(
+                {element1.toString(): element.payments[element1.toString()]});
+          }
+        }
+      });
+    });
   }
 
   addData() async {
