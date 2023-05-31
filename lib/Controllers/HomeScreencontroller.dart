@@ -75,7 +75,8 @@ class homeScreenController extends GetxController {
         total: map['total'].toString(),
         type: map['type'].toString(),
       );
-      transactionsList.add(tr);
+      if (DateTime.parse(tr.date).month == DateTime.now().month)
+        transactionsList.add(tr);
 
       print("data:::::::${map}");
     }
@@ -188,5 +189,10 @@ class homeScreenController extends GetxController {
     }
     navController.Loader = false;
     navController.update();
+  }
+
+  @override
+  void onInit() {
+    getlist();
   }
 }

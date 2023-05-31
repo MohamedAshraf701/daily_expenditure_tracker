@@ -44,26 +44,26 @@ class Demo extends StatelessWidget {
                   size.HeightSpace(20),
                   makePayment(controller),
                   size.HeightSpace(20),
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     bool check = true;
-                  //   },
-                  //   style: ElevatedButton.styleFrom(
-                  //     primary: Color(0xFF3FEDB2),
-                  //     shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(10)),
-                  //     minimumSize: Size(double.infinity, 50),
-                  //     textStyle: TextStyle(color: Colors.white),
-                  //   ),
-                  //   child: Center(
-                  //       child: Padding(
-                  //     padding: const EdgeInsets.all(8),
-                  //     child: Text(
-                  //       'Clear',
-                  //       style: TextStyle(fontSize: 18, letterSpacing: 1),
-                  //     ),
-                  //   )),
-                  // ),
+                  ElevatedButton(
+                    onPressed: () {
+                      bool check = true;
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF3FEDB2),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      minimumSize: Size(double.infinity, 50),
+                      textStyle: TextStyle(color: Colors.white),
+                    ),
+                    child: Center(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        'Clear',
+                        style: TextStyle(fontSize: 18, letterSpacing: 1),
+                      ),
+                    )),
+                  ),
                 ],
               ),
             ),

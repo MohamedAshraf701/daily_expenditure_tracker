@@ -13,7 +13,6 @@ class homeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     homeScreenController _controller = Get.find<homeScreenController>();
-    _controller.getlist();
     return GetBuilder(
         init: _controller,
         builder: (controller) {
